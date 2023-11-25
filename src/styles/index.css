@@ -17,7 +17,7 @@ body {
 }
 
 .icon-container {
-    padding-top: 0.3rem;
+    align-items: center;
     display: flex;
     justify-content: space-between;
     

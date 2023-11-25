@@ -30,10 +30,7 @@ const YourTodoList = () => {
 	}, []);
 
 
-	const handleDelete = (index) => {
-		let aux = todoList
-		aux.splice(index, 1)
-		setTodoList([...aux])
+	useEffect(() => {
 		fetch(ENDPOINT, {
 			method: "PUT",
 			headers: {
@@ -41,18 +38,17 @@ const YourTodoList = () => {
 			},
 			body: JSON.stringify(todoList),
 		});
+	}, [todoList]);
+
+	const handleDelete = (index) => {
+		let aux = todoList
+		aux.splice(index, 1)
+		setTodoList([...aux])
 	}
 	const handleSubmit = e => {
 		e.preventDefault();
 		setTodoList([...todoList, { label: newTask, done: false }]);
 		setNewTask("")
-		fetch(ENDPOINT, {
-			method: "PUT",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify(todoList),
-		});
 	}
 	const handleChange = e => {
 		setNewTask(e.target.value)
@@ -78,7 +74,7 @@ const YourTodoList = () => {
 
 								<i className="task-check fa-regular fa-square-check" style={{ color: "#23C474" }}></i>
 								<div className="task-label">
-									{task.label}
+									<p className="m-0 p-1"> {task.label} </p>
 								</div>
 								<span onClick={(e) => handleDelete(index)}>
 									<i className="task-erase fa-solid fa-delete-left" style={{ color: "#FF0000" }}></i>
